@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import ProductCard from "./components/ProductCard";
 import ProductDetailModal from "./components/ProductDetailModal";
 import PaginationControls from "./components/PaginationControls";
-import NotificationDisplay from "./components/NotificationDisplay";
-import LogDisplayModal from "./components/LogDisplayModal";
 import Navbar from "./Navbar";
 
 const ITEMS_PER_PAGE = 20;
