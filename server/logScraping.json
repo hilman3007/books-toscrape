@@ -1,0 +1,55 @@
+{
+  "success": true,
+  "data": {
+    "waktu": "3/7/2025, 15.20.00",
+    "totalValid": 998,
+    "totalCacat": 2,
+    "totalDiupdate": 1,
+    "logCacat": [
+      {
+        "url": "https://books.toscrape.com/catalogue/the-bridge-to-consciousness-im-writing-the-bridge-between-science-and-our-old-and-new-beliefs_840/index.html",
+        "namaProduk": "The Bridge to Consciousness: I'm Writing the Bridge Between Science and Our Old and New Beliefs.",
+        "hargaProduk": "£32.00",
+        "deskripsiProduk": "-",
+        "imgProduk": "https://books.toscrape.com/media/cache/39/c7/39c7bebcde5d9643ede71ac8ee87ee69.jpg",
+        "genre": "Default",
+        "rating": 3,
+        "stock": "In stock (15 available)"
+      },
+      {
+        "url": "https://books.toscrape.com/catalogue/alice-in-wonderland-alices-adventures-in-wonderland-1_5/index.html",
+        "namaProduk": "Alice in Wonderland (Alice's Adventures in Wonderland #1)",
+        "hargaProduk": "£55.53",
+        "deskripsiProduk": "-",
+        "imgProduk": "https://books.toscrape.com/media/cache/99/df/99df494c230127c3d5ff53153d1f23a3.jpg",
+        "genre": "Classics",
+        "rating": 1,
+        "stock": "In stock (1 available)"
+      }
+    ],
+    "logHapus": [],
+    "logUpdate": [
+      {
+        "nama": "The Star-Touched Queen",
+        "perubahan": {
+          "dari": {
+            "harga": "£46.02",
+            "deskripsi": "Fate and fortune. Power and passion. What does it take to be the queen of a kingdom when you're only seventeen?Maya is cursed. With a horoscope that promises a marriage of Death and Destruction, she has earned only the scorn and fear of her father's kingdom. Content to follow more scholarly pursuits, her whole world is torn apart when her father, the Raja, arranges a weddi Fate and fortune. Power and passion. What does it take to be the queen of a kingdom when you're only seventeen?Maya is cursed. With a horoscope that promises a marriage of Death and Destruction, she has earned only the scorn and fear of her father's kingdom. Content to follow more scholarly pursuits, her whole world is torn apart when her father, the Raja, arranges a wedding of political convenience to quell outside rebellions. Soon Maya becomes the queen of Akaran and wife of Amar. Neither roles are what she expected: As Akaran's queen, she finds her voice and power. As Amar's wife, she finds something else entirely: Compassion. Protection. Desire...But Akaran has its own secrets -- thousands of locked doors, gardens of glass, and a tree that bears memories instead of fruit. Soon, Maya suspects her life is in danger. Yet who, besides her husband, can she trust? With the fate of the human and Otherworldly realms hanging in the balance, Maya must unravel an ancient mystery that spans reincarnated lives to save those she loves the most. . .including herself.A lush and vivid story that is steeped in Indian folklore and mythology. The Star-touched Queen is a novel that no listener will soon forget. ...more",
+            "img": "https://books.toscrape.com/media/cache/ac/1a/ac1a0546d9cdf6cd82ab7712a6c418df.jpg",
+            "genre": "Fantasy",
+            "rating": 5,
+            "stock": "In stock (14 available)"
+          },
+          "ke": {
+            "harga": "£32.30",
+            "deskripsi": "Fate and fortune. Power and passion. What does it take to be the queen of a kingdom when you’re only seventeen?Maya is cursed. With a horoscope that promises a marriage of death and destruction, she has earned only the scorn and fear of her father’s kingdom. Content to follow more scholarly pursuits, her whole world is torn apart when her father, the Raja, arranges a weddi Fate and fortune. Power and passion. What does it take to be the queen of a kingdom when you’re only seventeen?Maya is cursed. With a horoscope that promises a marriage of death and destruction, she has earned only the scorn and fear of her father’s kingdom. Content to follow more scholarly pursuits, her whole world is torn apart when her father, the Raja, arranges a wedding of political convenience to quell outside rebellions. Soon Maya becomes the queen of Akaran and wife of Amar. Neither roles are what she expected: As Akaran’s queen, she finds her voice and power. As Amar’s wife, she finds something else entirely: Compassion. Protection. Desire…But Akaran has its own secrets—thousands of locked doors, gardens of glass, and a tree that bears memories instead of fruit. Soon, Maya suspects her life is in danger. Yet who, besides her husband, can she trust? With the fate of the human and Otherworldly realms hanging in the balance, Maya must unravel an ancient mystery that spans reincarnated lives to save those she loves the most…including herself. ...more",
+            "img": "https://books.toscrape.com/media/cache/dc/57/dc57f908a0a2e130a5c065893a9005dd.jpg",
+            "genre": "Fantasy",
+            "rating": 5,
+            "stock": "In stock (12 available)"
+          }
+        }
+      }
+    ]
+  }
+}
