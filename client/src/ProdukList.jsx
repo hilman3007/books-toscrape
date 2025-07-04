@@ -21,51 +21,38 @@ export default function ProdukList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("default");
 
-  const addNotification = useCallback((message, type = "info", duration = 5000) => {
-    const id = Date.now();
-    setNotifications((prev) => [...prev, { id, message, type, duration }]);
-  }, []);
-
-  const [notifications, setNotifications] = useState([]);
-
-  const fetchAllProducts = useCallback(
-    async (genre = "All") => {
-      setLoading(true);
-      setError(null);
-      try {
-        let url = "http://localhost:3001/products";
-        if (genre !== "All") {
-          url += `?genre=${encodeURIComponent(genre)}`;
-        }
-
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-        const rawProductsArray = await response.json();
-
-        const formattedProducts = rawProductsArray.map((item, index) => ({
-          id: item.id || `prod-${index}`,
-          nama: item.namaProduk || item.nama,
-          img: item.imgProduk || item.img,
-          harga: item.hargaProduk || item.harga,
-          deskripsi: item.deskripsiProduk || item.deskripsi,
-          rating: item.rating || 0,
-          stock: item.Stock || item.stock || "N/A",
-          genre: item.genre || "Uncategorized",
-        }));
-
-        setAllProducts(formattedProducts);
-        setTotalPages(Math.ceil(formattedProducts.length / ITEMS_PER_PAGE));
-        setCurrentPage(1);
-      } catch (err) {
-        setError(err.message);
-        addNotification(`Gagal mengambil produk: ${err.message}`, "error");
-      } finally {
-        setLoading(false);
+  const fetchAllProducts = useCallback(async (genre = "All") => {
+    setLoading(true);
+    setError(null);
+    try {
+      let url = "http://localhost:3001/products";
+      if (genre !== "All") {
+        url += `?genre=${encodeURIComponent(genre)}`;
       }
-    },
-    [addNotification]
-  );
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const rawProductsArray = await response.json();
+
+      const formattedProducts = rawProductsArray.map((item, index) => ({
+        id: item.id || `prod-${index}`,
+        nama: item.namaProduk || item.nama,
+        img: item.imgProduk || item.img,
+        harga: item.hargaProduk || item.harga,
+        deskripsi: item.deskripsiProduk || item.deskripsi,
+        rating: item.rating || 0,
+        stock: item.Stock || item.stock || "N/A",
+        genre: item.genre || "Uncategorized",
+      }));
+
+      setAllProducts(formattedProducts);
+      setCurrentPage(1);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchAllProducts(selectedGenre);
@@ -79,29 +66,44 @@ export default function ProdukList() {
   }, [allProducts]);
 
   const displayedProducts = useMemo(() => {
-    let filtered = allProducts.filter((product) =>
+    let filtered = [...allProducts].filter((product) =>
       product.nama.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  
+
     const parseHarga = (harga) => {
-      if (!harga) return 0;
-      const cleaned = harga.replace(/[^\d,]/g, "").replace(",", ".");
-      return parseFloat(cleaned) || 0;
+      if (!harga || typeof harga !== "string") return 0;
+      const cleaned = harga.replace(/[^0-9]/g, "");
+      return parseInt(cleaned, 10) || 0;
     };
-  
-    if (sortOption === "price-asc") {
-      filtered.sort((a, b) => parseHarga(a.harga) - parseHarga(b.harga));
-    } else if (sortOption === "price-desc") {
-      filtered.sort((a, b) => parseHarga(b.harga) - parseHarga(a.harga));
-    } else if (sortOption === "name-asc") {
-      filtered.sort((a, b) => a.nama.localeCompare(b.nama));
-    } else if (sortOption === "name-desc") {
-      filtered.sort((a, b) => b.nama.localeCompare(a.nama));
+
+    switch (sortOption) {
+      case "price-asc":
+        filtered.sort((a, b) => parseHarga(a.harga) - parseHarga(b.harga));
+        break;
+      case "price-desc":
+        filtered.sort((a, b) => parseHarga(b.harga) - parseHarga(a.harga));
+        break;
+      case "name-asc":
+        filtered.sort((a, b) => a.nama.localeCompare(b.nama));
+        break;
+      case "name-desc":
+        filtered.sort((a, b) => b.nama.localeCompare(a.nama));
+        break;
+      default:
+        break;
     }
-  
+
+    const total = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    setTotalPages(total);
+
+    // Reset ke halaman pertama jika currentPage > total
+    if (currentPage > total && total > 0) {
+      setCurrentPage(1);
+    }
+
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [allProducts, currentPage, searchQuery, sortOption]);  
+  }, [allProducts, currentPage, searchQuery, sortOption]);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -130,23 +132,20 @@ export default function ProdukList() {
         onGenreSelect={handleGenreSelect}
       />
 
-      {/* Top Padding agar tidak tertutupi navbar */}
       <div className="pt-28 px-4 sm:px-6 lg:px-10">
-        {/* Header Judul dan Filter */}
+        {/* Header & Filter */}
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800">
-              {pageTitle}
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Menampilkan hasil berdasarkan pencarian dan kategori
-            </p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{pageTitle}</h1>
+            <p className="text-sm text-gray-500">Menampilkan hasil pencarian dan kategori</p>
           </div>
-          <div>
+
+          {/* Filter Dropdown */}
+          <div className="w-full md:w-auto">
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full md:w-auto border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="default">Urutkan</option>
               <option value="price-asc">Harga: Rendah ke Tinggi</option>
@@ -163,17 +162,16 @@ export default function ProdukList() {
             Memuat data produk...
           </div>
         )}
-
         {error && (
           <div className="text-center text-red-600 font-semibold py-10">
             Terjadi kesalahan: {error}
           </div>
         )}
 
-        {/* Produk */}
+        {/* Produk Grid */}
         {!loading && !error && (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {displayedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -185,11 +183,11 @@ export default function ProdukList() {
 
             {displayedProducts.length === 0 && (
               <div className="text-center text-gray-500 italic mt-10">
-                Tidak ada produk yang cocok dengan pencarian.
+                Tidak ada produk yang cocok.
               </div>
             )}
 
-            {totalPages > 1 && (
+            {displayedProducts.length > 0 && totalPages > 1 && (
               <PaginationControls
                 currentPage={currentPage}
                 totalPages={totalPages}

@@ -13,19 +13,23 @@ export default function Navbar({ onSearch, genres, selectedGenre, onGenreSelect 
 
   return (
     <nav className="bg-white text-black shadow-md z-50 fixed top-0 left-0 w-full">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
         {/* Logo */}
-        <div className="text-2xl font-extrabold text-blue-700 tracking-wide">TokoBuku</div>
+        <div className="text-2xl font-extrabold text-blue-700 tracking-wide flex-shrink-0">
+          TokoBuku
+        </div>
 
         {/* Kategori + Search + Cart */}
-        <div className="flex items-center gap-2 flex-grow max-w-3xl w-full">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-grow w-full">
           {/* Dropdown Kategori */}
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition"
+              className="w-full sm:w-auto flex items-center justify-between gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition"
             >
-              {selectedGenre === "All" ? "Kategori" : selectedGenre}
+              <span className="truncate">
+                {selectedGenre === "All" ? "Kategori" : selectedGenre}
+              </span>
               <ChevronDown className="w-4 h-4" />
             </button>
 
@@ -50,7 +54,7 @@ export default function Navbar({ onSearch, genres, selectedGenre, onGenreSelect 
           </div>
 
           {/* Search Bar */}
-          <div className="relative flex-grow">
+          <div className="relative flex-grow min-w-0">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg
                 className="h-5 w-5 text-gray-400"
@@ -81,22 +85,20 @@ export default function Navbar({ onSearch, genres, selectedGenre, onGenreSelect 
             aria-label="Cart"
           >
             <ShoppingCart className="h-5 w-5 text-gray-700" />
-            {/* Optional badge
-            <span className="absolute top-0 right-0 text-xs bg-red-500 text-white rounded-full px-1">3</span> */}
           </button>
         </div>
 
         {/* Auth Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto justify-end">
           <a
             href="#"
-            className="text-white px-4 py-2 bg-blue-700 rounded-lg font-semibold hover:bg-blue-800 transition"
+            className="text-white px-4 py-2 bg-blue-700 rounded-lg font-semibold hover:bg-blue-800 transition w-full sm:w-auto text-center"
           >
             Daftar
           </a>
           <a
             href="#"
-            className="border border-gray-500 rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-gray-100 transition"
+            className="border border-gray-500 rounded-lg px-4 py-2 font-semibold text-gray-800 hover:bg-gray-100 transition w-full sm:w-auto text-center"
           >
             Masuk
           </a>
